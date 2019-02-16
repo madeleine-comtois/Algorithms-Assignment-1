@@ -91,8 +91,19 @@
      *
      */
     static double [] selectionSort (double a[]){
-
-         //todo: implement the sort
+         
+         for (int i = 0; i < a.length - 1; i++) {
+        	 int minimumIndex = i;
+        	 for (int j = i+1; j < a.length; j++) {
+        		 if (a[j] < a[minimumIndex])
+        			 minimumIndex = j;
+        		 
+        		 double temp = a[minimumIndex];
+        		 a[minimumIndex] = a[i];
+        		 a[i] = temp;
+        	 }
+         }
+         return a;
 
     }//end selectionsort
 
