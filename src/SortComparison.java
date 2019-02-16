@@ -4,8 +4,8 @@
  *  This class contains static methods that implementing sorting of an array of numbers
  *  using different sort algorithms.
  *
- *  @author
- *  @version HT 2019
+ *  @author Madeleine Comtois
+ *  @version 16/02/19
  */
 
  class SortComparison {
