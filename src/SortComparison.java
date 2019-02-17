@@ -43,19 +43,36 @@
      */
     static double [] quickSort (double a[]){
 	
-		return quickSort(a, 0, a.length -1);
+		quickSortRecursive(a, 0, a.length -1);
+		return a;
 
     }//end quicksort
     
-    static double[] quickSort(double[] a, int low, int high) {
+    static void quickSortRecursive(double[] a, int low, int high) {
     	if (high <= low)
-    		return null;
+    		return;
     	
+    	int lt = low, gt = high;
+    	double temp = a[low];
+    	int i = low;
+    	
+    	while (i < gt) {
+    		if (a[i] < temp)
+    			swap(a, lt++, i++);
+    		else if (a[i] > temp)
+    			swap(a, i, gt--);
+    		else
+    			i++;
+    	}
+    	
+    	quickSortRecursive(a, low, lt -1);
+    	quickSortRecursive(a, gt + 1, high);
+    	
+    	/*
     	int pivot = partition(a, low, high);
-    	quickSort(a, low, pivot - 1);
-    	quickSort(a, pivot + 1, high);
-    	
-    	return a;
+    	quickSortRecursive(a, low, pivot - 1);
+    	quickSortRecursive(a, pivot + 1, high);
+    	*/
     	
     }
     
