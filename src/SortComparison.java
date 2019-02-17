@@ -1,3 +1,5 @@
+
+
 // -------------------------------------------------------------------------
 
 /**
@@ -41,17 +43,44 @@
      */
     static double [] quickSort (double a[]){
 	
-		 //todo: implement the sort
+		return quickSort(a, 0, a.length -1);
 
     }//end quicksort
+    
+    static double[] quickSort(double[] a, int low, int high) {
+    	if (high <= low)
+    		return null;
+    	
+    	int pivot = partition(a, low, high);
+    	quickSort(a, low, pivot - 1);
+    	quickSort(a, pivot + 1, high);
+    	
+    	return a;
+    	
+    }
+    
+    public static int partition(double[] a, int left, int right) {
+		double pivot = a[(left + right) / 2];
+		while (left <= right) {
+			while (a[left] < pivot)
+				left++;
+			while (a[right] > pivot)
+				right--;
+			if (left < right) {
+				swap(a, left, right);
+				left++;
+				right++;
+			}
+		}
+		return left;
+	}
+    
+    public static void swap(double[] a, int left, int right) {
+		double temp = a[left];
+		a[left] = a[right];
+		a[right] = temp;
+	}
 
-    /**
-     * Sorts an array of doubles using Merge Sort.
-     * This method is static, thus it can be called as SortComparison.sort(a)
-     * @param a: An unsorted array of doubles.
-     * @return array sorted in ascending order
-     *
-     */
     /**
      * Sorts an array of doubles using iterative implementation of Merge Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
@@ -76,11 +105,38 @@
      * @return after the method returns, the array must be in ascending sorted order.
      */
     static double[] mergeSortRecursive (double a[]) {
-    	
 
-    	//todo: implement the sort
+    	double[] temp = new double[a.length];
+    	int low = 0;
+    	int high = a.length -1;
+    	sort(a, temp, low, high);
+    	return a;
 	
    }//end mergeSortRecursive
+    
+    static void sort(double[] a, double[] temp, int low, int high) {
+    	if (high <= low)
+    		return;
+    	int mid = low + (high - low) / 2;
+    	sort(temp, a, low, mid);
+    	sort(temp, a, mid + 1, high);
+    	merge(a, temp, low, mid, high);
+    	
+    }
+    
+    static void merge(double[] a, double[] temp, int low, int mid, int high) {
+    	int i = low, j = mid -1;
+    	for(int k = low; k <= high; k++) {
+    		if (i > mid)
+    			temp[k] = a[j++];
+    		else if (j > high)
+    			temp[k] = a[i++];
+    		else if (a[j] < a[i])
+    			temp[k] = a[j++];
+    		else
+    			temp[k] = a[i++];
+    	}
+    }
     	
     
     /**
@@ -108,8 +164,6 @@
     }//end selectionsort
 
    
-
-
     public static void main(String[] args) {
 
         //todo: do experiments as per assignment instructions
