@@ -90,10 +90,19 @@
      */
 
     static double[] mergeSortIterative (double a[]) {
-
-		 //todo: implement the sort
+		 sort(a);
+		 return a;
 	
     }//end mergesortIterative
+    
+    static void sort(double[] a) {
+    	double[] temp = new double[a.length];
+    	for (int width = 1; width < a.length; width = 2 * width) {
+    		for (int low = 0; low < a.length - width; low += width + width) {
+    			merge(a, temp, low, low+width-1, Math.min(low + width + width -1, a.length -1));
+    		}
+    	}
+    }
     
     
     
