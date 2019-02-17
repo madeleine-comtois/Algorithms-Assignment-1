@@ -21,15 +21,18 @@
      */
     static double [] insertionSort (double a[]){
 
-        double temp;
-        for (int i = 1; i < a.length; i++) {
-        	for (int j = 1; j > 0; j--) {
-        		if (a[j] < a[j-1]) {
-        			temp = a[j];
-        			a[j] = a[j-1];
-        			a[j-1] = temp;
-        		}
+        int i, j;
+        double index;
+        
+        for(i = 1; i < a.length; i++) {
+        	index = a[i];
+        	j = i -1;
+        	while ( (j >= 0) && (a[j] > index)) {
+        		a[j +1] = a[j];
+        		j = j -1;
+        		
         	}
+        	a[j +1] = index;
         }
         return a;
     }//end insertionsort
@@ -192,7 +195,10 @@
    
     public static void main(String[] args) {
 
-        //todo: do experiments as per assignment instructions
+    	double[] array = {1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1};
+    	insertionSort(array);
+    	for (double i : array)
+			System.out.println(i);
     }
 
  }//end class
