@@ -24,21 +24,50 @@ import org.junit.runners.JUnit4;
  * 
  * 						  |	  Insert	   |	Quick	    |	Merge Recursive		|	Merge Iterative		|	Selection
  * -------------------------------------------------------------------------------------------------------------------------
- * 10 random			  |	  568,725	   |	564,149	    |	   511,100			|		 512,196		|    521,484
+ * 10 random			  |	    568,725	   |	 564,149	|	     511,100		|		   512,196		|      521,484
  * -------------------------------------------------------------------------------------------------------------------------
- * 100 random			  |	  594,102	   |	613,735	    |	   604,467			|		 581,033		|	 636,907
+ * 100 random			  |	    594,102	   |	 613,735    |	     604,467		|		   581,033		|	   636,907
  * -------------------------------------------------------------------------------------------------------------------------
- * 1000 random			  |	  7,070,203	   |	1,155,212   |      1,960,575		|		 1,325,978		|    62,49,041
+ * 1000 random			  |	  7,070,203	   |   1,155,212    |      1,960,575		|		 1,325,978		|    6,249,041
  * -------------------------------------------------------------------------------------------------------------------------
- * 1000 few unique		  |	  6,304,647	   |	1,349,897   |      1,953,115		|		 1,159,838		|    6,339,811
+ * 1000 few unique		  |	  6,304,647	   |   1,349,897    |      1,953,115		|		 1,159,838		|    6,339,811
  * -------------------------------------------------------------------------------------------------------------------------
- * 1000 nearly ordered    |	  2,315,395	   |	1,026,250   |	   2,076,630		|		 1,253,803		|    28,020,856
+ * 1000 nearly ordered    |	  2,315,395	   |   1,026,250    |	   2,076,630		|		 1,253,803		|   28,020,856
  * -------------------------------------------------------------------------------------------------------------------------
- * 1000 reversed order	  |	  9,850,023	   |	837,542	    |	   1,780,378	    |		 1,537,876		|    7,313,378
+ * 1000 reversed order	  |	  9,850,023	   |	 837,542	|	   1,780,378	    |		 1,537,876		|    7,313,378
  * -------------------------------------------------------------------------------------------------------------------------
- * 1000 sorted			  |	  697,016 	   |	1,125,040   |	   1,608,163		|		 1,198,690		|    6,665,466
+ * 1000 sorted			  |	    697,016    |   1,125,040    |	   1,608,163		|		 1,198,690		|    6,665,466
  * -------------------------------------------------------------------------------------------------------------------------
  * 
+ * 
+ * 
+ * A. Which of the sorting algorithms does the order of input have an impact on? Why?
+ * 		Insertion sort
+ * 
+ * B. Which algorithm has the biggest difference between the best and worst performance, based
+ *	  on the type of input, for the input of size 1000? Why?
+ *
+ * C. Which algorithm has the best/worst scalability, i.e., the difference in performance time 
+ *    based on the input size? Please consider only input files with random order for this answer. 
+ *    
+ *    	The insertion sort algorithm has the worst scalability, with a leap from 594,102 nanoseconds to sort a 100 element
+ *    	array to 7,070,203 nanoseconds to sort a 1000 element array.
+ *    	The quick sort algorithm has the best scalability, with a leap from 613,735 nanoseconds to sort a 100 element array
+ *    	and 1,155,212 nanoseconds to sort a 1000 element array
+ *    
+ * D. Did you observe any difference between iterative and recursive implementations of merge sort?
+ * 		Merge sort performs roughly the same for random 10 elements, but as the arrays get longer and more complex
+ * 		the merge iterative algorithm works faster than the recursive one.
+ * 
+ * E. Which algorithm is the fastest for each of the 7 input files? 
+ * 		10 random: merge sort recursive
+ * 		100 random: merge sort iterative
+ * 		1000 random: quick sort
+ * 		1000 few unique: merge sort iterative
+ * 		1000 nearly ordered: quick sort
+ *  	1000 reversed order: quick sort
+ *  	1000 sorted: insertion sort
+ *    
  * 
  
 */
