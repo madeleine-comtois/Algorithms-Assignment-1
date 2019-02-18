@@ -6,7 +6,7 @@
  *
  * @author Madeleine Comtois - 17301720
  * @version 18/02/19
- */
+ */ 
 
 class SortComparison {
 
@@ -19,7 +19,8 @@ class SortComparison {
 	 *
 	 */
 	static double[] insertionSort(double a[]) {
-
+		if (a.length == 0)
+			return null;
 		int i, j;
 		double index;
 
@@ -45,16 +46,14 @@ class SortComparison {
 	 *
 	 */
 	static double[] quickSort(double a[]) {
-
+		if (a.length == 0)
+			return null;
 		quickSortRecursive(a, 0, a.length - 1);
 		return a;
 
 	}// end quicksort
 
 	static void quickSortRecursive(double[] a, int low, int high) {
-
-		if (a == null || a.length == 0)
-			return;
 		if (low >= high)
 			return;
 
@@ -98,6 +97,8 @@ class SortComparison {
 	 */
 
 	static double[] mergeSortIterative(double a[]) {
+		if (a.length == 0)
+			return null;
 		int rght, high;
 		int i, j, low;
 		double[] temp = new double[a.length];
@@ -142,6 +143,8 @@ class SortComparison {
 	 *         order.
 	 */
 	static double[] mergeSortRecursive(double a[]) {
+		if (a.length == 0)
+			return null;
 		sort(a, 0, a.length - 1);
 		return a;
 
@@ -189,6 +192,8 @@ class SortComparison {
 	 *
 	 */
 	static double[] selectionSort(double a[]) {
+		if (a.length == 0)
+			return null;
 
 		for (int i = 0; i < a.length - 1; i++) {
 			int minimumIndex = i;
@@ -208,9 +213,11 @@ class SortComparison {
 	public static void main(String[] args) {
 
 		double[] array = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
-		double[] newArray = quickSort(array);
-		for (double i : newArray)
-			System.out.println(i);
+		//double[] array = null;
+		insertionSort(array);
+		
+		for (double i : array)
+			System.out.println(i); 
 	}
 
 }// end class
