@@ -1,6 +1,12 @@
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Scanner;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -12,6 +18,31 @@ import org.junit.runners.JUnit4;
  *  @author Madeleine Comtois - 17301720
  *  @version 18/02/19
  */
+//-------------------------------------------------------------------------
+/*
+ * Algorithm performance comparison (in nanoseconds)
+ * 
+ * 						  |	  Insert	   |	Quick	    |	Merge Recursive		|	Merge Iterative		|	Selection
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 10 random			  |	  568,725	   |	564,149	    |	   511,100			|		 512,196		|    521,484
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 100 random			  |	  594,102	   |	613,735	    |	   604,467			|		 581,033		|	 636,907
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 random			  |	  7,070,203	   |	1,155,212   |      1,960,575		|		 1,325,978		|    62,49,041
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 few unique		  |	  6,304,647	   |	1,349,897   |      1,953,115		|		 1,159,838		|    6,339,811
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 nearly ordered    |	  2,315,395	   |	1,026,250   |	   2,076,630		|		 1,253,803		|    28,020,856
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 reversed order	  |	  9,850,023	   |	837,542	    |	   1,780,378	    |		 1,537,876		|    7,313,378
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 sorted			  |	  697,016 	   |	1,125,040   |	   1,608,163		|		 1,198,690		|    6,665,466
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * 
+ 
+*/
+
 @RunWith(JUnit4.class)
 public class SortComparisonTest
 {
@@ -128,11 +159,27 @@ public class SortComparisonTest
     /**
      *  Main Method.
      *  Use this main method to create the experiments needed to answer the experimental performance questions of this assignment.
+     * @throws FileNotFoundException 
      *
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
-        //TODO: implement this method
+        Scanner in = new Scanner(new File("numbersNearlyOrdered1000.txt"));
+        double[] numbers10 = new double[1000];
+        int i = 0;
+        while (in.hasNextDouble()) {
+        	numbers10[i++] = in.nextDouble();
+        }
+       
+        final long startTime = System.nanoTime();
+        SortComparison.quickSort(numbers10);
+        final long duration = System.nanoTime() - startTime;
+        
+        for (double num : numbers10)
+        	System.out.println(num);
+        
+       
+        System.out.println("Time in nanoseconds: " + duration);
     } 
 
 }

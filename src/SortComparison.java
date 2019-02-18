@@ -213,7 +213,6 @@ class SortComparison {
 	public static void main(String[] args) {
 
 		double[] array = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
-		//double[] array = null;
 		insertionSort(array);
 		
 		for (double i : array)
