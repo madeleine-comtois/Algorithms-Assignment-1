@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-
 // -------------------------------------------------------------------------
 
 /**
@@ -7,7 +5,7 @@ import java.lang.reflect.Array;
  * numbers using different sort algorithms.
  *
  * @author Madeleine Comtois - 17301720
- * @version 17/02/19
+ * @version 18/02/19
  */
 
 class SortComparison {
@@ -48,45 +46,40 @@ class SortComparison {
 	 */
 	static double[] quickSort(double a[]) {
 
-		quickSortRecursive(a, a.length - 1, 0);
+		quickSortRecursive(a, 0, a.length - 1);
 		return a;
 
 	}// end quicksort
 
 	static void quickSortRecursive(double[] a, int low, int high) {
-		/*
-		 * if (high <= low) return;
-		 * 
-		 * int lt = low, gt = high; double temp = a[low]; int i = low;
-		 * 
-		 * while (i < gt) { if (a[i] < temp) swap(a, lt++, i++); else if (a[i] > temp)
-		 * swap(a, i, gt--); else i++; }
-		 * 
-		 * quickSortRecursive(a, low, lt -1); quickSortRecursive(a, gt + 1, high);
-		 */
 
-		int index = partition(a, low, high);
-		if (low < index - 1)
-			quickSortRecursive(a, low, index - 1);
-		if (index < high)
-			quickSortRecursive(a, index, high);
+		if (a == null || a.length == 0)
+			return;
+		if (low >= high)
+			return;
 
-	}
+		double pivot = a[low + (high - low) / 2];
 
-	public static int partition(double[] a, int left, int right) {
-		double pivot = a[(left + right) / 2];
-		while (left <= right) {
-			while (a[left] < pivot)
-				left++;
-			while (a[right] > pivot)
-				right--;
-			if (left < right) {
-				swap(a, left, right);
-				left++;
-				right++;
+		int i = low, j = high;
+
+		while (i <= j) {
+			while (a[i] < pivot)
+				i++;
+			while (a[j] > pivot)
+				j--;
+
+			if (i <= j) {
+				swap(a, i, j);
+				i++;
+				j--;
 			}
 		}
-		return left;
+
+		if (low < j)
+			quickSortRecursive(a, low, j);
+		if (high > i)
+			quickSortRecursive(a, i, high);
+
 	}
 
 	public static void swap(double[] a, int left, int right) {
@@ -215,7 +208,7 @@ class SortComparison {
 	public static void main(String[] args) {
 
 		double[] array = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
-		double[] newArray = mergeSortIterative(array);
+		double[] newArray = quickSort(array);
 		for (double i : newArray)
 			System.out.println(i);
 	}
