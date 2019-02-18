@@ -105,31 +105,40 @@ class SortComparison {
 	 */
 
 	static double[] mergeSortIterative(double a[]) {
-		return null;
-
-		/*
-		 * if (a == null) return null;
-		 * 
-		 * if (a.length > 1) { int mid = a.length / 2;
-		 * 
-		 * double[] left = new double[mid]; for (int i = 0; i < mid; i++) left[i] =
-		 * a[i];
-		 * 
-		 * double[] right = new double[a.length - mid]; for (int i = mid; i < a.length;
-		 * i++) right[i - mid] = a[i]; }
-		 */
-
-	}// end mergesortIterative
-
-	static void sort(double[] a) {
+		int rght, high;
+		int i, j, low;
 		double[] temp = new double[a.length];
-		for (int width = 1; width < a.length; width = 2 * width) {
-			for (int low = 0; low < a.length - width; low += width + width) {
-				// merge(a, temp, low, low + width - 1, Math.min(low + width + width - 1,
-				// a.length - 1));
+
+		for (int k = 1; k < a.length; k *= 2) {
+			for (int left = 0; left + k < a.length; left += k * 2) {
+				rght = left + k;
+				high = rght + k;
+				if (high > a.length)
+					high = a.length;
+				low = left;
+				i = left;
+				j = rght;
+				while (i < rght && j < high) {
+					if (a[i] <= a[j])
+						temp[low++] = a[i++];
+					else
+						temp[low++] = a[j++];
+
+				}
+				while (i < rght)
+					temp[low++] = a[i++];
+
+				while (j < high)
+					temp[low++] = a[j++];
+
+				for (low = left; low < high; low++)
+					a[low] = temp[low];
+
 			}
 		}
-	}
+		return a;
+
+	}// end mergesortIterative
 
 	/**
 	 * Sorts an array of doubles using recursive implementation of Merge Sort. This
@@ -206,7 +215,7 @@ class SortComparison {
 	public static void main(String[] args) {
 
 		double[] array = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
-		double[] newArray = insertionSort(array);
+		double[] newArray = mergeSortIterative(array);
 		for (double i : newArray)
 			System.out.println(i);
 	}
