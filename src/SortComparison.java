@@ -5,7 +5,7 @@
  * numbers using different sort algorithms.
  *
  * @author Madeleine Comtois - 17301720
- * @version 18/02/19
+ * @version 24/02/19
  */ 
 
 class SortComparison {
@@ -127,7 +127,6 @@ class SortComparison {
 
 				for (low = left; low < high; low++)
 					a[low] = temp[low];
-
 			}
 		}
 		return a;
@@ -206,7 +205,7 @@ class SortComparison {
 			a[minimumIndex] = a[i];
 			a[i] = temp;
 		}
-		return a;
+		return a; 
 
 	}// end selectionsort
 

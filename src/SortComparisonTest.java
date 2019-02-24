@@ -39,6 +39,25 @@ import org.junit.runners.JUnit4;
  * 1000 sorted			  |	    697,016    |   1,125,040    |	   1,608,163		|		 1,198,690		|    6,665,466
  * -------------------------------------------------------------------------------------------------------------------------
  * 
+ * Algorithm performance comparison (in milliseconds)
+ * 
+ * 						  |	  Insert	   |	Quick	    |	Merge Recursive		|	Merge Iterative	 |	 Selection
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 10 random			  |	    0.33	   |	 0.00	    |	     0.00   		|		  0.00		 |      0.33
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 100 random			  |	    0.00	   |	 0.00       |	     0.00		    |		  0.33  	 |	   	0.00
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 random			  |	    0.33	   |     0.33       |        0.00		    |		  0.33   	 |    	1.67
+ * ------------------------------------------------------------------------------------------------------------------------
+ * 1000 few unique		  |	    0.67	   |     0.00       |        0.33		    |		  0.33		 |    	1.33
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 nearly ordered    |	    0.67       |     0.33       |	     0.33		    |		  0.00		 |   	0.33
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 reversed order	  |	    0.00	   |	 0.00	    |	     0.33	        |		  0.00		 |    	0.67
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 1000 sorted			  |	    0.00       |     0.00       |	     0.00		    |		  0.00		 |    	1.00
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 
  * 
  * 
  * A. Which of the sorting algorithms does the order of input have an impact on? Why?
@@ -107,7 +126,7 @@ public class SortComparisonTest
      * Check that the methods work for an array with a single element
      */
     @Test
-    public void testOneElement()
+    public void testOneElement() 
     {
     	double[] array = {1.3};
     	double[] expectedArray = {1.3};
@@ -193,22 +212,56 @@ public class SortComparisonTest
      */
     public static void main(String[] args) throws FileNotFoundException
     {
-        Scanner in = new Scanner(new File("numbersNearlyOrdered1000.txt"));
-        double[] numbers10 = new double[1000];
-        int i = 0;
-        while (in.hasNextDouble()) {
-        	numbers10[i++] = in.nextDouble();
-        }
-       
-        final long startTime = System.nanoTime();
-        SortComparison.quickSort(numbers10);
-        final long duration = System.nanoTime() - startTime;
+    	
+        Scanner in = null;
+        String numbers10 = "numbers10.txt";
+        String numbers100 = "numbers100.txt";
+        String numbers1000 = "numbers1000.txt";
+        String numbers1000Duplicates = "numbers1000Duplicates";
+        String numbersNearlyOrdered1000 = "numbersNearlyOrdered1000";
+        String numbersReversed1000 = "numbersReversed1000";
+        String numbersSorted1000 = "numbersSorted1000";
         
-        for (double num : numbers10)
-        	System.out.println(num);
+        getAverageTime(in, numbers10, 10);
+        getAverageTime(in, numbers100, 100);
+        getAverageTime(in, numbers1000, 1000);
+        getAverageTime(in, numbers1000Duplicates, 1000);
+        getAverageTime(in, numbersNearlyOrdered1000, 1000);
+        getAverageTime(in, numbersReversed1000, 1000);
+        getAverageTime(in, numbersSorted1000, 1000);
         
-       
-        System.out.println("Time in nanoseconds: " + duration);
+        
     } 
+    
+    @SuppressWarnings("resource")
+	public static double[] getValues(Scanner in, double[] numbers, String fileName) throws FileNotFoundException {
+    	in = new Scanner(new File("numbers10.txt"));
+    	int i = 0;
+    	while (in.hasNextDouble()) {
+    		numbers[i++] = in.nextDouble();
+    	}
+    	return numbers;
+    }
+    
+    public static double calculateTime(Scanner in, String fileName, int numberSize) throws FileNotFoundException {
+    	double[] numbers = new double[numberSize];
+    	getValues(in, numbers, fileName);
+    	final long startTime = System.currentTimeMillis();
+        SortComparison.selectionSort(numbers); 
+        final long duration = System.currentTimeMillis() - startTime;
+    	return duration;
+    	
+    }
+    
+    public static void getAverageTime(Scanner in, String file, int fileSize) throws FileNotFoundException {
+    	double time1, time2, time3;
+    	 time1 = calculateTime(in, file, fileSize);
+         time2 = calculateTime(in, file, fileSize);   
+         time3 = calculateTime(in, file, fileSize);
+         double averageTime = (time1 + time2 + time3) / 3.0;
+         System.out.println("File: " + file);
+         System.out.println("Time1: " + time1 + "\t\tTime2: " + time2 + "\t\tTime3: " + time3);
+         System.out.println("Average time: " + averageTime + "\n");
+    }
 
 }
