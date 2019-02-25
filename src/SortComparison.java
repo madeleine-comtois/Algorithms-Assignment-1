@@ -35,7 +35,7 @@ class SortComparison {
 			a[j + 1] = index;
 		}
 		return a;
-	}// end insertionsort
+	}
 
 	/**
 	 * Sorts an array of doubles using Quick Sort. This method is static, thus it
@@ -51,7 +51,7 @@ class SortComparison {
 		quickSortRecursive(a, 0, a.length - 1);
 		return a;
 
-	}// end quicksort
+	}
 
 	static void quickSortRecursive(double[] a, int low, int high) {
 		if (low >= high)
@@ -99,39 +99,13 @@ class SortComparison {
 	static double[] mergeSortIterative(double a[]) {
 		if (a.length == 0)
 			return null;
-		int rght, high;
-		int i, j, low;
 		double[] temp = new double[a.length];
-
-		for (int k = 1; k < a.length; k *= 2) {
-			for (int left = 0; left + k < a.length; left += k * 2) {
-				rght = left + k;
-				high = rght + k;
-				if (high > a.length)
-					high = a.length;
-				low = left;
-				i = left;
-				j = rght;
-				while (i < rght && j < high) {
-					if (a[i] <= a[j])
-						temp[low++] = a[i++];
-					else
-						temp[low++] = a[j++];
-
-				}
-				while (i < rght)
-					temp[low++] = a[i++];
-
-				while (j < high)
-					temp[low++] = a[j++];
-
-				for (low = left; low < high; low++)
-					a[low] = temp[low];
-			}
-		}
+		for (int size = 1; size < a.length; size = size*2)
+			for(int low = 0; low < a.length-size; low += size*2)
+				merge(a, temp, low, low+size-1, Math.min(low+(size*2)-1, a.length-1));
 		return a;
 
-	}// end mergesortIterative
+	}
 
 	/**
 	 * Sorts an array of doubles using recursive implementation of Merge Sort. This
@@ -144,40 +118,37 @@ class SortComparison {
 	static double[] mergeSortRecursive(double a[]) {
 		if (a.length == 0)
 			return null;
-		sort(a, 0, a.length - 1);
+		double[] temp = new double[a.length];
+		sort(a, temp, 0, a.length - 1);
 		return a;
-
-	}// end mergeSortRecursive
-
-	static void sort(double[] a, int low, int high) {
-		if (high <= low)
-			return;
-		int mid = low + (high - low) / 2;
-		sort(a, low, mid);
-		sort(a, mid + 1, high);
-		merge(a, low, mid, high);
 
 	}
 
-	static void merge(double[] a, int low, int mid, int high) {
-		double[] temp = new double[high - low + 1];
-		int i = low, j = mid + 1, n = 0;
+	static void sort(double[] a, double[] temp, int low, int high) {
+		if (high <= low)
+			return;
+		int mid = low + (high - low) / 2;
+		sort(a, temp, low, mid);
+		sort(a, temp, mid+1, high);
+		merge(a, temp, low, mid, high);
 
-		while (i <= mid || j <= high) {
+	}
+
+	static void merge(double[] a, double[] temp, int low, int mid, int high) {
+		for (int k = low; k <= high; k++)
+			temp[k] = a[k];
+		
+		int i = low, j = mid + 1;
+		for (int k = low; k <= high; k++) {
 			if (i > mid)
-				temp[n] = a[j++];
+				a[k] = temp[j++];
 			else if (j > high)
-				temp[n] = a[i++];
-			else if (a[i] < a[j])
-				temp[n] = a[i++];
+				a[k] = temp[i++];
+			else if (temp[j] < temp[i])
+				a[k] = temp[j++];
 			else
-				temp[n] = a[j++];
-
-			n++;
-		}
-
-		for (i = low; i <= high; i++) {
-			a[i] = temp[i - low];
+				a[k] = temp[i++];
+				
 		}
 
 	}
@@ -207,15 +178,16 @@ class SortComparison {
 		}
 		return a; 
 
-	}// end selectionsort
-
-	public static void main(String[] args) {
-
-		double[] array = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
-		insertionSort(array);
-		
-		for (double i : array)
-			System.out.println(i); 
 	}
 
+	public static void main(String[] args) {
+		double[] array3 = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
+		double[] array1 = { -1.4, 4.23, -2.0, 7.3, -5.23, -3.2832, 2.0, 6.9, -9.1, 10.0, 32.1 };
+		mergeSortIterative(array1);
+		for (double i : array1) {
+			System.out.println(i);
+		}
+		
+	}
+ 
 }// end class
