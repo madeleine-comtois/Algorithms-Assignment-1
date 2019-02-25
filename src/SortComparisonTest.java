@@ -20,7 +20,7 @@ import org.junit.runners.JUnit4;
 /* 
  * Algorithm performance comparison (in milliseconds)
  * 
- * 						  |	  Insert   |   Quick   |   Merge Recursive   |   Merge Iterative   |   Selection
+ *                        |	  Insert   |   Quick   |   Merge Recursive   |   Merge Iterative   |   Selection
  * -------------------------------------------------------------------------------------------------------------
  * 10 random              |   0.2639   |   0.2046  |       0.1836        |        0.1919       |     0.2042
  * -------------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ import org.junit.runners.JUnit4;
  * 
  * 		Insertion sort performs faster the more sorted the elements are, and it is significantly slower 
  * 		if the elements are in reversed order. If an element in insertion sort is less than a previous element,
- * 		it needs to slide over to the left to be put in place. Therefore, in a reversed array every every element
+ * 		it needs to slide over to the left to be put in place. Therefore, in a reversed array every element
  * 		would have to move, giving a runtime of Theta(n^2), where n = length of the array.
  * 
  * B. Which algorithm has the biggest difference between the best and worst
@@ -51,7 +51,7 @@ import org.junit.runners.JUnit4;
  * 		
  * 		Insertion sort has the greatest difference for best and worst time, as it runs for 3.8034 ms in a random
  * 		1000 element array, but it runs 0.0033 ms for a 1000 element array that is already sorted. This is because
- * 		the order of input for insertion sort has a significant effect on the algorithm's performance.
+ * 		the order of input for insertion sort has a significant impact on the algorithm's performance.
  * 
  * C. Which algorithm has the best/worst scalability, i.e., the difference in
  *    performance time based on the input size? Please consider only input files
@@ -66,7 +66,7 @@ import org.junit.runners.JUnit4;
  *    implementations of merge sort? 
  *    
  * 		The Merge sorts perform roughly the same for random 10 elements, but as the arrays 
- * 		get longer and more complex the merge recursive algorithm works faster than the recursive one.
+ * 		get longer and more complex, the merge recursive algorithm works faster than the recursive one.
  *    
  * E. Which algorithm is the fastest for each of the 7 input files?
  * 
@@ -83,7 +83,7 @@ import org.junit.runners.JUnit4;
 public class SortComparisonTest {
 	// ~ Constructor ........................................................
 	@Test
-	public void testConstructor() {
+	public void testConstructor() { 
 		new SortComparison();
 	}
 
@@ -104,10 +104,6 @@ public class SortComparisonTest {
 				SortComparison.mergeSortIterative(array));
 		assertNull("Check that selectionSort returns null on an empty array", SortComparison.selectionSort(array));
 	}
-
-	// TODO: add more tests here. Each line of code and each decision in
-	// Collinear.java should
-	// be executed at least once from at least one test.
 
 	/**
 	 * Check that the methods work for an array with a single element
@@ -198,6 +194,7 @@ public class SortComparisonTest {
 	 * @throws FileNotFoundException
 	 *
 	 */
+	/*
 	public static void main(String[] args) throws FileNotFoundException {
 
 		getAverageTime("numbers10.txt", 10);
@@ -242,5 +239,5 @@ public class SortComparisonTest {
 		System.out.println("Time1: " + time1 + "\t\tTime2: " + time2 + "\t\tTime3: " + time3);
 		System.out.println("Average time: " + averageTime + "\n");
 	}
-
+*/
 }

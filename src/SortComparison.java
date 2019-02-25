@@ -150,7 +150,6 @@ class SortComparison {
 				a[k] = temp[i++];
 				
 		}
-
 	}
 
 	/**
@@ -176,18 +175,17 @@ class SortComparison {
 			a[minimumIndex] = a[i];
 			a[i] = temp;
 		}
-		return a; 
-
+		return a;  
 	}
-
+/*
 	public static void main(String[] args) {
-		double[] array3 = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
-		double[] array1 = { -1.4, 4.23, -2.0, 7.3, -5.23, -3.2832, 2.0, 6.9, -9.1, 10.0, 32.1 };
-		mergeSortIterative(array1);
-		for (double i : array1) {
+		double[] array = { 1.4, 4.23, 2.0, 7.3, 5.23, 3.2832, 2.0, 6.9, 9.1, 10.0, 32.1 };
+		mergeSortIterative(array);
+		for (double i : array) {
 			System.out.println(i);
 		}
 		
 	}
+	*/
  
-}// end class
+}
