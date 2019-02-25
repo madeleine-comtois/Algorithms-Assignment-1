@@ -5,7 +5,7 @@
  * numbers using different sort algorithms.
  *
  * @author Madeleine Comtois - 17301720
- * @version 24/02/19
+ * @version 25/02/19
  */ 
 
 class SortComparison {

@@ -14,94 +14,69 @@ import org.junit.runners.JUnit4;
  * Test class for SortComparison.java
  *
  * @author Madeleine Comtois - 17301720
- * @version 24/02/19
+ * @version 25/02/19
  */
 //-------------------------------------------------------------------------
-/*
- * Algorithm performance comparison (in nanoseconds)
- * 
- * | Insert | Quick | Merge Recursive | Merge Iterative | Selection
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 10 random | 568,725 | 564,149 |
- * 511,100 | 512,196 | 521,484
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 100 random | 594,102 | 613,735 |
- * 604,467 | 581,033 | 636,907
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 1000 random | 7,070,203 |
- * 1,155,212 | 1,960,575 | 1,325,978 | 6,249,041
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 1000 few unique | 6,304,647 |
- * 1,349,897 | 1,953,115 | 1,159,838 | 6,339,811
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 1000 nearly ordered | 2,315,395
- * | 1,026,250 | 2,076,630 | 1,253,803 | 28,020,856
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 1000 reversed order | 9,850,023
- * | 837,542 | 1,780,378 | 1,537,876 | 7,313,378
- * -----------------------------------------------------------------------------
- * -------------------------------------------- 1000 sorted | 697,016 |
- * 1,125,040 | 1,608,163 | 1,198,690 | 6,665,466
- * -----------------------------------------------------------------------------
- * --------------------------------------------
- * 
+/* 
  * Algorithm performance comparison (in milliseconds)
  * 
- * | Insert | Quick | Merge Recursive | Merge Iterative | Selection
- * -----------------------------------------------------------------------------
- * ---------------------------------- 10 random | 0.00 | 0.33 | 0.33 | 0.33 |
- * 0.33
- * -----------------------------------------------------------------------------
- * ---------------------------------- 100 random | 0.00 | 0.33 | 0.00 | 0.00 |
- * 0.00
- * -----------------------------------------------------------------------------
- * ---------------------------------- 1000 random | 4.33 | 0.00 | 0.67 | 0.67 |
- * 3.00
- * -----------------------------------------------------------------------------
- * ---------------------------------- 1000 few unique | 0.33 | 0.00 | 0.00 |
- * 0.67 | 0.33
- * -----------------------------------------------------------------------------
- * ---------------------------------- 1000 nearly ordered | 0.33 | 0.33 | 0.33 |
- * 0.00 | 1.00
- * -----------------------------------------------------------------------------
- * ---------------------------------- 1000 reversed order | 0.33 | 0.00 | 0.00 |
- * 0.00 | 1.00
- * -----------------------------------------------------------------------------
- * ---------------------------------- 1000 sorted | 0.33 | 0.00 | 0.00 | 0.33 |
- * 0.67
- * -----------------------------------------------------------------------------
- * ----------------------------------
+ * 						  |	  Insert   |   Quick   |   Merge Recursive   |   Merge Iterative   |   Selection
+ * -------------------------------------------------------------------------------------------------------------
+ * 10 random              |   0.2639   |   0.2046  |       0.1836        |        0.1919       |     0.2042
+ * -------------------------------------------------------------------------------------------------------------
+ * 100 random             |   0.0747   |   0.0472  |       0.0843        |        0.0599       |     0.1270
+ * -------------------------------------------------------------------------------------------------------------
+ * 1000 random            |   3.7034   |   0.2266  |       0.4713        |        0.3903       |     1.7992
+ * -------------------------------------------------------------------------------------------------------------
+ * 1000 few unique        |   0.1693   |   0.0710  |       0.1362        |        0.1480       |     0.4674
+ * -------------------------------------------------------------------------------------------------------------
+ * 1000 nearly ordered    |   0.0344   |   0.0392  |       0.0898        |        0.1232       |     0.4298
+ * -------------------------------------------------------------------------------------------------------------
+ * 1000 reversed order    |   0.4185   |   0.0211  |       0.0642        |        0.0990       |     0.6952
+ * -------------------------------------------------------------------------------------------------------------
+ * 1000 sorted            |   0.0033   |   0.0227  |       0.0544        |        0.0986       |     0.6568
+ * -------------------------------------------------------------------------------------------------------------
  * 
  * 
  * 
- * A. Which of the sorting algorithms does the order of input have an impact on?
- * Why? Insertion sort
+ * A. Which of the sorting algorithms does the order of input have an impact on? Why? 
+ * 
+ * 		Insertion sort performs faster the more sorted the elements are, and it is significantly slower 
+ * 		if the elements are in reversed order. If an element in insertion sort is less than a previous element,
+ * 		it needs to slide over to the left to be put in place. Therefore, in a reversed array every every element
+ * 		would have to move, giving a runtime of Theta(n^2), where n = length of the array.
  * 
  * B. Which algorithm has the biggest difference between the best and worst
- * performance, based on the type of input, for the input of size 1000? Why?
- *
- * C. Which algorithm has the best/worst scalability, i.e., the difference in
- * performance time based on the input size? Please consider only input files
- * with random order for this answer.
+ *    performance, based on the type of input for the input of size 1000? Why?
+ * 		
+ * 		Insertion sort has the greatest difference for best and worst time, as it runs for 3.8034 ms in a random
+ * 		1000 element array, but it runs 0.0033 ms for a 1000 element array that is already sorted. This is because
+ * 		the order of input for insertion sort has a significant effect on the algorithm's performance.
  * 
- * The insertion sort algorithm has the worst scalability, with a leap from
- * 594,102 nanoseconds to sort a 100 element array to 7,070,203 nanoseconds to
- * sort a 1000 element array. The quick sort algorithm has the best scalability,
- * with a leap from 613,735 nanoseconds to sort a 100 element array and
- * 1,155,212 nanoseconds to sort a 1000 element array
+ * C. Which algorithm has the best/worst scalability, i.e., the difference in
+ *    performance time based on the input size? Please consider only input files
+ *    with random order for this answer.
+ *    
+ *		Quicksort has the best scalability since the runtime for each input size is very similar.  It sorts
+ *		a 10 element array in 0.0246 ms and a 1000 element array in 0.2266 ms.  Insertion sort
+ *		has the worst scalability since there is a large runtime gap between small and large input sizes, as 
+ *		it sorts a 10 element array in 0.2639 ms and a 1000 element array in 3.7034 ms.   
  * 
  * D. Did you observe any difference between iterative and recursive
- * implementations of merge sort? Merge sort performs roughly the same for
- * random 10 elements, but as the arrays get longer and more complex the merge
- * iterative algorithm works faster than the recursive one.
+ *    implementations of merge sort? 
+ *    
+ * 		The Merge sorts perform roughly the same for random 10 elements, but as the arrays 
+ * 		get longer and more complex the merge recursive algorithm works faster than the recursive one.
+ *    
+ * E. Which algorithm is the fastest for each of the 7 input files?
  * 
- * E. Which algorithm is the fastest for each of the 7 input files? 10 random:
- * merge sort recursive 100 random: merge sort iterative 1000 random: quick sort
- * 1000 few unique: merge sort iterative 1000 nearly ordered: quick sort 1000
- * reversed order: quick sort 1000 sorted: insertion sort
- * 
- * 
- * 
+ * 		10 random: merge recursive
+ * 		100 random: quick sort
+ * 		1000 random: quick sort
+ * 		1000 few unique: quick sort
+ * 		1000 nearly ordered: insertion sort
+ * 		1000 reversed order: quick sort
+ * 		1000 already sorted: insertion sort
  */
 
 @RunWith(JUnit4.class)
@@ -245,14 +220,13 @@ public class SortComparisonTest {
 		return numbers;
 	}
 
-	public static long calculateTime(Scanner in, String fileName, int numberSize) throws FileNotFoundException {
+	public static double calculateTime(Scanner in, String fileName, int numberSize) throws FileNotFoundException {
 		double[] numbers = new double[numberSize];
 		getValues(in, numbers, fileName);
-		final long startTime = System.nanoTime();
-		SortComparison.mergeSortRecursive(numbers);
-		long duration = System.nanoTime() - startTime;
-		System.out.println("Duration in nanoseconds: " + duration);
-		duration *= 1000000;
+		final double startTime = System.nanoTime();
+		SortComparison.insertionSort(numbers);
+		double duration = System.nanoTime() - startTime;
+		duration /= 1000000;
 		return duration;
 
 	}
